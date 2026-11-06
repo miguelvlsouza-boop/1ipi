@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tênis de Mesa VR / 3D - Edição ITTF</title>
+    <!-- Ícones FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Contentor do Cenário 3D -->
+    <div id="canvas-container"></div>
+
+    <!-- Interface do Utilizador (HUD) -->
+    <div id="ui">
+        <!-- Barra Superior de Pontuação e Definições -->
+        <header class="hud-top">
+            <div class="brand">
+                <i class="fa-solid fa-table-tennis-paddle-ball"></i>
+                <span>TÊNIS DE MESA VR</span>
+            </div>
+            
+            <div class="score-board">
+                <div class="player-score" id="p1-display">
+                    <span class="label">JOGADOR</span>
+                    <span class="sets" id="p1-sets">Sets: 0</span>
+                    <span class="points" id="p1-pts">00</span>
+                </div>
+                <div class="vs-divider">VS</div>
+                <div class="player-score" id="p2-display">
+                    <span class="label">CPU (ITTF)</span>
+                    <span class="sets" id="p2-sets">Sets: 0</span>
+                    <span class="points" id="p2-pts">00</span>
+                </div>
+            </div>
+
+            <div class="controls-top">
+                <button id="vr-btn" class="btn-primary"><i class="fa-solid fa-vr-cardboard"></i> Modos VR</button>
+                <button id="info-btn" class="btn-icon" title="Ping-Pong vs Tênis de Mesa"><i class="fa-solid fa-circle-info"></i></button>
+                <button id="reset-btn" class="btn-icon" title="Reiniciar Partida"><i class="fa-solid fa-rotate-right"></i></button>
+            </div>
+        </header>
+
+        <!-- Indicador de Saque -->
+        <div id="serve-indicator" class="hud-serve">
+            <i class="fa-solid fa-bullseye"></i> SAQUE: <span id="server-name">JOGADOR</span>
+        </div>
+
+        <!-- Banner de Notificação de Ponto/Set -->
+        <div id="banner" class="hud-banner hidden">
+            <h2 id="banner-title">SET VENCIDO!</h2>
+            <p id="banner-subtitle">Excelente jogada</p>
+        </div>
+
+        <!-- Painel Inferior de Opções -->
+        <div class="hud-options">
+            <div class="option-group">
+                <label><i class="fa-solid fa-gauge-high"></i> Dificuldade:</label>
+                <div class="btn-group">
+                    <button class="diff-btn" data-diff="easy">Iniciante</button>
+                    <button class="diff-btn active" data-diff="medium">Médio</button>
+                    <button class="diff-btn" data-diff="hard">Profissional</button>
+                </div>
+            </div>
+            <div class="option-group">
+                <label><i class="fa-solid fa-circle"></i> Cor da Bola (40mm):</label>
+                <div class="btn-group">
+                    <button class="color-btn active" data-color="#ff7700" style="background-color: #ff7700;">Laranja</button>
+                    <button class="color-btn" data-color="#ffffff" style="background-color: #ffffff; color: #000;">Branca</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Informativo: Ping-Pong vs. Tênis de Mesa -->
+    <div id="info-modal" class="modal hidden">
+        <div class="modal-content">
+            <button id="close-modal" class="close-btn">&times;</button>
+            <h2><i class="fa-solid fa-table-tennis-paddle-ball"></i> Ping-Pong vs. Tênis de Mesa</h2>
+            <p class="modal-intro">Embora partilhem a mesma essência, existem diferenças fundamentais de contexto e regulamento:</p>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3><i class="fa-solid fa-gamepad"></i> Ping-Pong</h3>
+                    <ul>
+                        <li><strong>Caráter:</strong> Lazer, entretenimento informal e brincadeiras entre amigos.</li>
+                        <li><strong>Origem:</strong> Surgiu como marca registada comercial no final do século XIX.</li>
+                        <li><strong>Regras:</strong> Flexíveis, com saques livres e pontuações variadas decididas no momento.</li>
+                    </ul>
+                </div>
+                <div class="info-card highlight">
+                    <h3><i class="fa-solid fa-trophy"></i> Tênis de Mesa (ITTF)</h3>
+                    <ul>
+                        <li><strong>Caráter:</strong> Desporto olímpico oficial regulamentado mundialmente pela ITTF.</li>
+                        <li><strong>Regras Rigorosas:</strong>
+                            <ul>
+                                <li>O saque deve quicar primeiro no campo do sacador e depois no do adversário.</li>
+                                <li>Em caso de toque na rede com quique correto no saque, é chamado <strong>LET</strong> (repetição).</li>
+                                <li>Sets oficiais disputados a 11 pontos (com margem de 2 pontos de vantagem).</li>
+                            </ul>
+                        </li>
+                        <li><strong>Equipamento Homologado:</strong> Bola oficial de 40mm e raquete de madeira revestida com borracha vermelha e preta.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bibliotecas 3D Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <!-- Ficheiro JavaScript Principal -->
+    <script src="script.js"></script>
+</body>
+</html>
